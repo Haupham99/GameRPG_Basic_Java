@@ -26,8 +26,8 @@ public class Enemy extends Creature {
 		
 		bounds.x = 15;
 		bounds.y = 10;
-		bounds.width = 30;
-		bounds.height = 30;
+		bounds.width = 45;
+		bounds.height = 40;
 		
 		animationDown = new Animation(200, Assets.enemy_down);
 		animationUp = new Animation(200, Assets.enemy_up);

@@ -25,7 +25,7 @@ public class Player extends Creature{
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
 		
-		health = 10;
+		health = 30;
 		bounds.x = 0;
 		bounds.y = 0;
 		bounds.width = 60;

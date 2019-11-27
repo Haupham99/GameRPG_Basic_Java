@@ -23,10 +23,11 @@ public class World {
 		this.handler = handler;
 		entityManager = new EntityManager(handler,new Player(handler, 100, 100));
 		entityManager.addEntity(new Tree(handler, 150, 300));
-		entityManager.addEntity(new Tree(handler, 150, 600));
+		entityManager.addEntity(new Tree(handler, 150, 700));
 		entityManager.addEntity(new Enemy(handler, 450, 200));
-		entityManager.addEntity(new Enemy(handler, 550, 300));
-		entityManager.addEntity(new Enemy(handler, 600, 350));
+		entityManager.addEntity(new Enemy(handler, 550, 430));
+		entityManager.addEntity(new Enemy(handler, 600, 800));
+		entityManager.addEntity(new Enemy(handler, 750, 1000));
 
 		
 		loadWorld(path);
