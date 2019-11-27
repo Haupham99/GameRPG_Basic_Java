@@ -12,7 +12,7 @@ public abstract class Entity {
 	protected Handler handler;
 	protected float x, y;
 	protected int width, height;
-	protected int health;
+	public int health;
 	protected boolean active = true;
 	public int getHealth() {
 		return health;
