@@ -1,18 +1,17 @@
 package titleGame;
 
-import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import titleGame.Display.Display;
 import titleGame.gfx.Assets;
 import titleGame.gfx.GameCamera;
-import titleGame.gfx.ImageLoader;
-import titleGame.gfx.SpriteSheet;
 import titleGame.input.KeyManager;
 import titleGame.input.MouseManager;
-import titleGame.states.*;
+import titleGame.states.GameState;
+import titleGame.states.MenuState;
+import titleGame.states.State;
 
 public class Game implements Runnable {
 	
@@ -52,7 +51,8 @@ public class Game implements Runnable {
 	}
 	
 	private void init() {
-		display = new Display(title, width, height);
+		handler = new Handler(this);
+		display = new Display( title, width, height);
 		display.getFrame().addKeyListener(keyManager);
 		display.getFrame().addMouseListener(mouseManager);
 		display.getFrame().addMouseMotionListener(mouseManager);
@@ -62,7 +62,6 @@ public class Game implements Runnable {
 //		image = new SpriteSheet(testImage);
 		Assets.init();
 		
-		handler = new Handler(this);
 		gameCamera = new GameCamera(handler, 0, 0);
 
 		
@@ -74,6 +73,7 @@ public class Game implements Runnable {
 	int x = 0;
 	
 	private void tick() {
+//		display.setHealthLabel(handler.getWorld().getEntityManager().getPlayer().getHealth());
 		keyManager.tick();
 		
 		if(State.getState() != null)
@@ -99,7 +99,10 @@ public class Game implements Runnable {
 		
 		if(State.getState() != null)
 			State.getState().render(g);
-		
+		if(State.getState() == gameState) {
+			g.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
+			g.drawString("Health : " + handler.getWorld().getEntityManager().getPlayer().getHealth(), 200, 100);
+		}
 		//End Draw		
 		bs.show();
 		g.dispose();
@@ -160,6 +163,14 @@ public class Game implements Runnable {
 		return height;
 	}
 	
+	public Handler getHandler() {
+		return handler;
+	}
+
+	public void setHandler(Handler handler) {
+		this.handler = handler;
+	}
+
 	public synchronized void start() {
 		if(running)
 			return;

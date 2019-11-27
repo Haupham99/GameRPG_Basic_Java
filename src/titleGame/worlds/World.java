@@ -2,13 +2,11 @@ package titleGame.worlds;
 
 import java.awt.Graphics;
 
-import titleGame.Game;
 import titleGame.Handler;
 import titleGame.entities.EntityManager;
 import titleGame.entities.creatures.Enemy;
 import titleGame.entities.creatures.Player;
 import titleGame.entities.statics.Tree;
-import titleGame.gfx.Assets;
 import titleGame.tiles.Tile;
 import titleGame.utils.Utils;
 

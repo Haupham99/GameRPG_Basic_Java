@@ -2,12 +2,7 @@ package titleGame.states;
 
 import java.awt.Graphics;
 
-import titleGame.Game;
 import titleGame.Handler;
-import titleGame.entities.statics.*;
-import titleGame.entities.creatures.Player;
-import titleGame.gfx.Assets;
-import titleGame.tiles.Tile;
 import titleGame.worlds.World;
 
 public class GameState extends State{

@@ -19,6 +19,7 @@ public class Display {
 		this.height = height;
 		
 		createDisplay();
+//		System.out.print(handler.getWorld().getEntityManager().getPlayer().getHealth());
 	}
 	
 	private void createDisplay() {
@@ -28,6 +29,8 @@ public class Display {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		
+		
 		
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width, height));

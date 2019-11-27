@@ -1,5 +1,7 @@
 package titleGame.entities.creatures;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -23,6 +25,7 @@ public class Player extends Creature{
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
 		
+		health = 10;
 		bounds.x = 0;
 		bounds.y = 0;
 		bounds.width = 60;
@@ -82,14 +85,15 @@ public class Player extends Creature{
 			if(e.equals(this))
 				continue;
 			if(e.getCollisionBound(0, 0).intersects(ar)) {
+				health -= 1;
 				e.hurt(1);
+				if(health < 0) {
+					active = false;
+					die();
+				}
 				return;
 			}
 		}
-	}
-	
-	public void die() {
-		System.out.println("Die");
 	}
 
 	private void getInput() {
@@ -109,6 +113,11 @@ public class Player extends Creature{
 	public void render(Graphics g) {
 		g.drawImage(getCurrentAnimationFrame(), (int)(x - handler.getGameCamera().getxOffset()), (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
 	
+		if(health < 1) {
+			g.setColor(Color.red);
+			g.setFont(new Font("Comic Sans MS", Font.BOLD, 50));
+			g.drawString("Game Over!", 500, 500);
+		}
 //		g.setColor(Color.red);
 //		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
 //				(int) (y + bounds.y - handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
@@ -124,6 +133,12 @@ public class Player extends Creature{
 		}else {
 			return animationDown.getCurrentFrame();
 		}
+	}
+
+	@Override
+	public void die() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

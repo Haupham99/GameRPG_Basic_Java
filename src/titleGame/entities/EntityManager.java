@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import titleGame.Handler;
 import titleGame.entities.creatures.Player;
-import titleGame.entities.statics.Tree;
 
 public class EntityManager {
 	
