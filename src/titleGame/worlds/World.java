@@ -27,6 +27,9 @@ public class World {
 		entityManager.addEntity(new Tree(handler, 150, 300));
 		entityManager.addEntity(new Tree(handler, 150, 600));
 		entityManager.addEntity(new Enemy(handler, 450, 200));
+		entityManager.addEntity(new Enemy(handler, 550, 300));
+		entityManager.addEntity(new Enemy(handler, 600, 350));
+
 		
 		loadWorld(path);
 		

@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import titleGame.Handler;
 import titleGame.gfx.Animation;
 import titleGame.gfx.Assets;
+import titleGame.tiles.Tile;
 
 public class Enemy extends Creature {
 	
@@ -23,8 +24,8 @@ public class Enemy extends Creature {
 		timer = 0;
 		lastTime = System.currentTimeMillis();
 		
-		bounds.x = 20;
-		bounds.y = 15;
+		bounds.x = 15;
+		bounds.y = 10;
 		bounds.width = 30;
 		bounds.height = 30;
 		
@@ -37,12 +38,26 @@ public class Enemy extends Creature {
 	public void moveX() {
 		if(timer < 2000) {
 			xMove = speed;
-			x += xMove;
-			timer += System.currentTimeMillis() - lastTime;
+			int tx = (int)(x + xMove + bounds.width)/Tile.TILE_WIDTH;			
+			if(!collisionWithTile(tx, (int)(y + bounds.y)/Tile.TILE_HEIGHT) && 
+					!collisionWithTile(tx, (int)(y + bounds.y + bounds.height)/Tile.TILE_HEIGHT)) {
+				x += xMove;
+				timer += System.currentTimeMillis() - lastTime;
+			}	else {
+				x = tx *Tile.TILE_WIDTH - bounds.x - bounds.width - 1;
+				timer = 2000;
+			}
 		}else if(timer>=2000 && timer <= 4000) {
 			xMove = -speed;
-			x += xMove;
-			timer += System.currentTimeMillis() - lastTime;
+			int tx = (int)(x + xMove)/Tile.TILE_WIDTH;
+			if(!collisionWithTile(tx, (int)y/Tile.TILE_WIDTH) &&
+					!collisionWithTile(tx, (int)(y+bounds.height)/Tile.TILE_HEIGHT)) {
+				x += xMove;
+				timer += System.currentTimeMillis() - lastTime;
+			}else {
+				x = tx * Tile.TILE_WIDTH + Tile.TILE_WIDTH ;
+				timer = 0;
+			}
 		}else {
 			timer = 0;
 		}
@@ -56,7 +71,8 @@ public class Enemy extends Creature {
 	@Override
 	
 	public void move() {
-		moveX();
+		if(!checkEntityCollisions(xMove, 0f))
+			moveX();
 	}
 	
 	public void tick() {
