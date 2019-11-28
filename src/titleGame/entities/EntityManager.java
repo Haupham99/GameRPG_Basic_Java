@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import titleGame.Handler;
+import titleGame.entities.creatures.Enemy;
 import titleGame.entities.creatures.Player;
 
 public class EntityManager {
@@ -62,6 +63,13 @@ public class EntityManager {
 
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+	public Enemy getEnemy() {
+		for(int i=0;i<entities.size();i++)
+			if(entities.get(i) instanceof Enemy) {
+				return (Enemy) entities.get(i);
+			}
+		return null;
 	}
 	
 }

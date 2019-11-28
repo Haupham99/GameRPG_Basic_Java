@@ -12,7 +12,7 @@ public class Assets {
 	public static BufferedImage[] player_down, player_up, player_left, player_right, player_static;
 	public static BufferedImage[] player_attackDown, player_attackUp, player_attackLeft, player_attackRight;
 	public static BufferedImage[] enemy_down, enemy_up, enemy_left, enemy_right;
-	public static BufferedImage[] btn_start;
+	public static BufferedImage[] btn_easy,btn_hard;
 	
 	public static void init() {
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
@@ -80,9 +80,13 @@ public class Assets {
 		tree = sheet.crop(0, 0, width, height);
 //		tree = character.crop(0, 0, width, height);
 		
-		btn_start= new BufferedImage[2];
-		btn_start[1]=sheet.crop(0,0,width*2,height);
-		btn_start[0]=sheet.crop(width*2,0,width*2,height);
+		btn_easy= new BufferedImage[2];
+		btn_easy[0]=ImageLoader.loadImage("/textures/easyDefault.png");
+		btn_easy[1]=ImageLoader.loadImage("/textures/easyEntered.png");
+		
+		btn_hard= new BufferedImage[2];
+		btn_hard[0]=ImageLoader.loadImage("/textures/hardDefault.png");
+		btn_hard[1]=ImageLoader.loadImage("/textures/hardEntered.png");
 	}
 	
 }
