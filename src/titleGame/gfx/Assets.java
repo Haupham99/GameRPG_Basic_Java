@@ -9,19 +9,31 @@ public class Assets {
 	private static final int width=32, height=32;
 	
 	public static BufferedImage dirt, grass, stone, tree, enemy;
-	public static BufferedImage[] player_down, player_up, player_left, player_right;
+	public static BufferedImage[] player_down, player_up, player_left, player_right, player_static;
+	public static BufferedImage[] player_attackDown, player_attackUp, player_attackLeft, player_attackRight;
 	public static BufferedImage[] enemy_down, enemy_up, enemy_left, enemy_right;
 	
 	public static void init() {
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
 		SpriteSheet sheetEnemy = new SpriteSheet(ImageLoader.loadImage("/textures/ene.png"));
 		SpriteSheet character = new SpriteSheet(ImageLoader.loadImage("/textures/character.gif"));
+		SpriteSheet character1 = new SpriteSheet(ImageLoader.loadImage("/textures/3_Actor1.png"));
+		SpriteSheet playerAttack = new SpriteSheet(ImageLoader.loadImage("/textures/3_Actor1_7.png"));
 		
-		player_down = new BufferedImage[2];
-		player_up = new BufferedImage[2];
-		player_left = new BufferedImage[2];
-		player_right = new BufferedImage[2];
+		//player move
+		player_static =new BufferedImage[1];
+		player_down = new BufferedImage[3];
+		player_up = new BufferedImage[3];
+		player_left = new BufferedImage[3];
+		player_right = new BufferedImage[3];
 		
+		//player attack
+		player_attackDown = new BufferedImage[9];
+		player_attackUp = new BufferedImage[9];
+		player_attackLeft = new BufferedImage[9];
+		player_attackRight = new BufferedImage[9];
+		
+		//enemy move
 		enemy_down = new BufferedImage[2];
 		enemy_up = new BufferedImage[2];
 		enemy_left = new BufferedImage[2];
@@ -38,15 +50,29 @@ public class Assets {
 		enemy_right[1] = character.crop(width*5, height, width, height);
 		
 		
-		//player
-		player_down[0] = character.crop(0, height*3, width, height);
-		player_down[1] = character.crop(width, height*3, width, height);
-		player_up[0] = character.crop(0, height*2, width, height);
-		player_up[1] = character.crop(width, height*2, width, height);
-		player_left[0] = character.crop(0, 0, width, height);
-		player_left[1] = character.crop(width, 0, width, height);
-		player_right[0] = character.crop(0, height, width, height);
-		player_right[1] = character.crop(width, height, width, height);
+		//player move
+		player_static[0] = character1.crop(64*7, 64*4, 64, 64);
+		player_down[0] = character1.crop(64*6, 64*4, 64, 64);
+		player_down[1] = character1.crop(64*7, 64*4, 64, 64);
+		player_down[2] = character1.crop(64*8, 64*4, 64, 64);
+		player_right[0] = character1.crop(64*6, 64*6, 64, 64);
+		player_right[1] = character1.crop(64*7, 64*6, 64, 64);
+		player_right[2] = character1.crop(64*8, 64*6, 64, 64);
+		player_left[0] = character1.crop(64*6, 64*5, 64, 64);
+		player_left[1] = character1.crop(64*7, 64*5, 64, 64);
+		player_left[2] = character1.crop(64*8, 64*5, 64, 64);
+		player_up[0] = character1.crop(64*6, 64*7, 64, 64);
+		player_up[1] = character1.crop(64*7, 64*7, 64, 64);
+		player_up[2] = character1.crop(64*8, 64*7, 64, 64);
+		
+		//player attack
+		for(int i=0; i<9; i++) {
+			player_attackDown[i] = playerAttack.crop(96*i, 96*0, 96, 96);
+			player_attackUp[i] = playerAttack.crop(96*i, 96*1, 96, 96);
+			player_attackLeft[i] = playerAttack.crop(96*i, 96*2, 96, 96);
+			player_attackRight[i] = playerAttack.crop(96*i, 96*3, 96, 96);
+		}
+		
 		dirt = sheet.crop(width, 0, width, height);
 		grass = sheet.crop(width*2, 0, width, height);
 		stone = sheet.crop(width*3, 0, width, height);

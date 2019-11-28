@@ -19,7 +19,7 @@ public class Enemy extends Creature {
 	
 	public Enemy(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
-		speed = 4.0f;
+		speed = 10.0f;
 		
 		timer = 0;
 		lastTime = System.currentTimeMillis();
