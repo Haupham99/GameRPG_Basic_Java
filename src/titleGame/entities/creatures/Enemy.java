@@ -14,12 +14,13 @@ public class Enemy extends Creature {
 	private Animation animationUp;
 	private Animation animationLeft;
 	private Animation animationRight;
+	private double maxFollowDistance = 300.0d;
 	
 	private long lastTime, timer;
 	
 	public Enemy(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
-		speed = 10.0f;
+		speed = 2.0f;
 		
 		timer = 0;
 		lastTime = System.currentTimeMillis();
@@ -36,36 +37,83 @@ public class Enemy extends Creature {
 	}
 	
 	public void moveX() {
-		if(timer < 2000) {
-			xMove = speed;
+//		if(timer < 2000) {
+//			xMove = speed;
+//			int tx = (int)(x + xMove + bounds.width)/Tile.TILE_WIDTH;			
+//			if(!collisionWithTile(tx, (int)(y + bounds.y)/Tile.TILE_HEIGHT) && 
+//					!collisionWithTile(tx, (int)(y + bounds.y + bounds.height)/Tile.TILE_HEIGHT)) {
+//				x += xMove;
+//				timer += System.currentTimeMillis() - lastTime;
+//			}	else {
+//				x = tx *Tile.TILE_WIDTH - bounds.x - bounds.width - 1;
+//				timer = 2000;
+//			}
+//		}else if(timer>=2000 && timer <= 4000) {
+//			xMove = -speed;
+//			int tx = (int)(x + xMove)/Tile.TILE_WIDTH;
+//			if(!collisionWithTile(tx, (int)y/Tile.TILE_WIDTH) &&
+//					!collisionWithTile(tx, (int)(y+bounds.height)/Tile.TILE_HEIGHT)) {
+//				x += xMove;
+//				timer += System.currentTimeMillis() - lastTime;
+//			}else {
+//				x = tx * Tile.TILE_WIDTH + Tile.TILE_WIDTH ;
+//				timer = 0;
+//			}
+//		}else {
+//			timer = 0;
+//		}
+//		lastTime = System.currentTimeMillis();
+		double distance;
+		Player player=handler.getWorld().getEntityManager().getPlayer();
+		
+		distance = Math.hypot(Math.abs(this.getCenterX() - player.getCenterX()), Math.abs(this.getCenterY() - player.getCenterY()));
+		
+		if(x < player.getX()&&distance<=maxFollowDistance) {xMove=speed;
 			int tx = (int)(x + xMove + bounds.width)/Tile.TILE_WIDTH;			
 			if(!collisionWithTile(tx, (int)(y + bounds.y)/Tile.TILE_HEIGHT) && 
 					!collisionWithTile(tx, (int)(y + bounds.y + bounds.height)/Tile.TILE_HEIGHT)) {
 				x += xMove;
-				timer += System.currentTimeMillis() - lastTime;
 			}	else {
 				x = tx *Tile.TILE_WIDTH - bounds.x - bounds.width - 1;
-				timer = 2000;
+				x+=xMove;
 			}
-		}else if(timer>=2000 && timer <= 4000) {
-			xMove = -speed;
+		}else if(x > player.getX()&&distance<=maxFollowDistance){xMove=-speed;
 			int tx = (int)(x + xMove)/Tile.TILE_WIDTH;
 			if(!collisionWithTile(tx, (int)y/Tile.TILE_WIDTH) &&
 					!collisionWithTile(tx, (int)(y+bounds.height)/Tile.TILE_HEIGHT)) {
 				x += xMove;
-				timer += System.currentTimeMillis() - lastTime;
 			}else {
-				x = tx * Tile.TILE_WIDTH + Tile.TILE_WIDTH ;
-				timer = 0;
+				x = tx * Tile.TILE_WIDTH + Tile.TILE_WIDTH - bounds.x;
+				x+=xMove;
 			}
-		}else {
-			timer = 0;
-		}
-		lastTime = System.currentTimeMillis();
+		}else {xMove=0;}
+	
 	}
 	
 	public void moveY() {
-		x -=2;
+		double distance;
+		Player player=handler.getWorld().getEntityManager().getPlayer();
+		
+		distance = Math.hypot(Math.abs(this.getCenterX() - player.getCenterX()), Math.abs(this.getCenterY() - player.getCenterY()));
+		if(y < player.getY()&&distance<=maxFollowDistance) {yMove=+speed;
+			int ty = (int)(y + yMove + bounds.height)/Tile.TILE_HEIGHT;
+			if(!collisionWithTile((int)(x + bounds.x)/Tile.TILE_WIDTH, ty) &&
+					!collisionWithTile((int)(x + bounds.x + bounds.width)/Tile.TILE_WIDTH, ty)) {
+				y += yMove;
+			}else {
+				y = ty * Tile.TILE_HEIGHT - bounds.height - bounds.y - 1; 
+				y+=yMove;
+			}
+		}else if(y > player.getY()&&distance<=maxFollowDistance){yMove=-speed;
+			int ty = (int)(y + yMove)/Tile.TILE_HEIGHT;
+			if(!collisionWithTile((int)x/Tile.TILE_HEIGHT, ty) &&
+					!collisionWithTile((int)(x+bounds.width)/Tile.TILE_WIDTH, ty)) {
+				y += yMove;
+			}else {
+				y = ty * Tile.TILE_HEIGHT + Tile.TILE_HEIGHT - bounds.y;
+				y+=yMove;
+			}
+		}else{yMove=0;}
 	}
 	
 	@Override
@@ -73,6 +121,8 @@ public class Enemy extends Creature {
 	public void move() {
 		if(!checkEntityCollisions(xMove, 0f))
 			moveX();
+		if(!checkEntityCollisions(0f, yMove))
+			moveY();
 	}
 	
 	public void tick() {

@@ -113,6 +113,12 @@ public abstract class Creature extends Entity{
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
+	public float getCenterX() {
+        return x + width/2;
+    }
+	public float getCenterY() {
+        return y + height/2;
+    }
 	
 	
 	
