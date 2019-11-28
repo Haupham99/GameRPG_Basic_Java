@@ -8,7 +8,7 @@ public class Assets {
 	
 	private static final int width=32, height=32;
 	
-	public static BufferedImage dirt, grass, stone, tree, enemy;
+	public static BufferedImage dirt, grass, stone, tree, enemy, water;
 	public static BufferedImage[] player_down, player_up, player_left, player_right, player_static;
 	public static BufferedImage[] player_attackDown, player_attackUp, player_attackLeft, player_attackRight;
 	public static BufferedImage[] enemy_down, enemy_up, enemy_left, enemy_right;
@@ -19,6 +19,7 @@ public class Assets {
 		SpriteSheet character = new SpriteSheet(ImageLoader.loadImage("/textures/character.gif"));
 		SpriteSheet character1 = new SpriteSheet(ImageLoader.loadImage("/textures/3_Actor1.png"));
 		SpriteSheet playerAttack = new SpriteSheet(ImageLoader.loadImage("/textures/3_Actor1_7.png"));
+		SpriteSheet waterSheet = new SpriteSheet(ImageLoader.loadImage("/textures/Water5.png"));
 		
 		//player move
 		player_static =new BufferedImage[1];
@@ -77,6 +78,7 @@ public class Assets {
 		grass = sheet.crop(width*2, 0, width, height);
 		stone = sheet.crop(width*3, 0, width, height);
 		tree = sheet.crop(0, 0, width, height);
+		water = waterSheet.crop(0, 96*2, 96, 96);
 //		tree = character.crop(0, 0, width, height);
 	}
 	
