@@ -170,6 +170,10 @@ public class Game implements Runnable {
 	public void setHandler(Handler handler) {
 		this.handler = handler;
 	}
+	
+	public void setMenuState(State state){
+		State.setState(menuState);
+	}
 
 	public synchronized void start() {
 		if(running)
