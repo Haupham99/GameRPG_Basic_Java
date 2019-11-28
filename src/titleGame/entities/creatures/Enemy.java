@@ -10,11 +10,12 @@ import titleGame.tiles.Tile;
 
 public class Enemy extends Creature {
 	
+	private Animation animatiStatic;
 	private Animation animationDown;
 	private Animation animationUp;
 	private Animation animationLeft;
 	private Animation animationRight;
-	private double maxFollowDistance = 300.0d;
+	private double maxFollowDistance = 200.0d;
 	
 	private long lastTime, timer;
 	
@@ -30,6 +31,7 @@ public class Enemy extends Creature {
 		bounds.width = 45;
 		bounds.height = 40;
 		
+		animatiStatic = new Animation(200, Assets.enemy_static);
 		animationDown = new Animation(200, Assets.enemy_down);
 		animationUp = new Animation(200, Assets.enemy_up);
 		animationLeft = new Animation(200, Assets.enemy_left);

@@ -11,7 +11,7 @@ public class Assets {
 	public static BufferedImage dirt, grass, stone, tree, enemy, water;
 	public static BufferedImage[] player_down, player_up, player_left, player_right, player_static;
 	public static BufferedImage[] player_attackDown, player_attackUp, player_attackLeft, player_attackRight;
-	public static BufferedImage[] enemy_down, enemy_up, enemy_left, enemy_right;
+	public static BufferedImage[] enemy_down, enemy_up, enemy_left, enemy_right,enemy_static;
 	public static BufferedImage[] btn_easy,btn_hard;
 	
 	public static void init() {
@@ -36,12 +36,14 @@ public class Assets {
 		player_attackRight = new BufferedImage[9];
 		
 		//enemy move
+		enemy_static =new BufferedImage[1];
 		enemy_down = new BufferedImage[2];
 		enemy_up = new BufferedImage[2];
 		enemy_left = new BufferedImage[2];
 		enemy_right = new BufferedImage[2];
 		
 		//enemy
+		enemy_static[0]=character.crop(width*5, height*3, width, height);
 		enemy_down[0] = character.crop(width*4, height*3, width, height);
 		enemy_down[1] = character.crop(width*5, height*3, width, height);
 		enemy_up[0] = character.crop(width*4, height*2, width, height);

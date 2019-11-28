@@ -14,9 +14,6 @@ public class Display {
 
 	private JFrame frame;
 	private Canvas canvas;
-	private JMenuBar menubar;
-	private JMenu file;
-	private JMenuItem menuitem;
 	
 	private String title;
 	private int width, height;
@@ -39,24 +36,7 @@ public class Display {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		 menubar = new JMenuBar();
-		  
-	     file = new JMenu("File");
-	        
-	     menuitem = new JMenuItem("Exit");
-	     menuitem.addActionListener(new ActionListener(){
-	            @Override
-	            public void actionPerformed(ActionEvent e)
-	            {
-	                System.exit(0); 
-	            }
-	      });
-	      file.add(menuitem);
-	      menubar.add(file);
-	      frame.setJMenuBar(menubar);
-		
-		
-		
+			
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width, height));
 		canvas.setMaximumSize(new Dimension(width, height));

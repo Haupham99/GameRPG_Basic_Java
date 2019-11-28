@@ -10,6 +10,7 @@ import titleGame.Handler;
 import titleGame.entities.Entity;
 import titleGame.gfx.Animation;
 import titleGame.gfx.Assets;
+import titleGame.worlds.World;
 
 public class Player extends Creature{
 	
@@ -30,11 +31,12 @@ public class Player extends Creature{
 	private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
 	private long timer, lastTime, timer1, lastTime1;
 	private int count;
+	private static final int DEFAULT_HEALTH =30;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
 		
-		health = 2;
+		health = DEFAULT_HEALTH;
 		bounds.x = 0;
 		bounds.y = 0;
 		bounds.width = 60;
@@ -184,10 +186,12 @@ public class Player extends Creature{
 				timer1 = 0;
 			}
 			if(count > 50) {
+				health =DEFAULT_HEALTH;			
 				handler.getGame().setMenuState(null);
 			}
 		}
 		if(timer1 > 1000) {
+			health=DEFAULT_HEALTH;
 			handler.getGame().setMenuState(null);
 		}
 //		g.setColor(Color.red);

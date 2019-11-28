@@ -8,7 +8,10 @@ public class WaterTile extends Tile {
 
 	public WaterTile(int ID) {
 		super(Assets.water, ID);
-		// TODO Auto-generated constructor stub
+		
 	}
-
+	@Override
+	public boolean isSolid() {
+		return true;
+	}
 }
