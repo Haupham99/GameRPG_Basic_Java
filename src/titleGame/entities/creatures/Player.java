@@ -28,15 +28,24 @@ public class Player extends Creature{
 	
 	//Attack time
 	private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
+	private long timer, lastTime, timer1, lastTime1;
+	private int count;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
 		
-		health = 30;
+		health = 2;
 		bounds.x = 0;
 		bounds.y = 0;
 		bounds.width = 60;
 		bounds.height =60;
+		
+		count = 0;
+		
+		timer = 0;
+		timer1 = 0;
+		lastTime = System.nanoTime();
+		lastTime1 = System.nanoTime();
 		
 		playerStatic = new Animation(200, Assets.player_static);
 		
@@ -67,7 +76,37 @@ public class Player extends Creature{
 		handler.getGameCamera().centerOnEntity(this);
 		
 		//Attack
+		checkHurt();
 		checkAttack();
+	}
+	
+	private void checkHurt() {
+		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
+			if(e == this)
+				continue;
+			else {
+				Rectangle RecPlayer = new Rectangle();
+				RecPlayer.x = (int)x;
+				RecPlayer.y = (int)y;
+				RecPlayer.width = 64;
+				RecPlayer.height = 64;
+				
+				Rectangle RecEnemy = new Rectangle();
+				RecEnemy.x = (int)e.getX();
+				RecEnemy.y = (int)e.getY();
+				RecEnemy.width = 64;
+				RecEnemy.height = 64;
+				if(RecPlayer.intersects(RecEnemy)) {
+					
+					timer += System.nanoTime() - lastTime;
+					if(timer >= 1000000000) {
+						health -= 1;
+						timer = 0;
+					}
+					lastTime = System.nanoTime();
+				}
+			}
+		}
 	}
 	
 	private void checkAttack() {
@@ -104,7 +143,6 @@ public class Player extends Creature{
 			if(e.equals(this))
 				continue;
 			if(e.getCollisionBound(0, 0).intersects(ar)) {
-				health -= 1;
 				e.hurt(1);
 				if(health < 0) {
 					active = false;
@@ -130,6 +168,7 @@ public class Player extends Creature{
 	}
 	
 	public void render(Graphics g) {
+		lastTime1 = System.currentTimeMillis();
 		if(getCurrentAnimationAttack() != null) {
 			g.drawImage(getCurrentAnimationAttack(), (int)(x - handler.getGameCamera().getxOffset()), (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
 		}else {
@@ -139,6 +178,17 @@ public class Player extends Creature{
 			g.setColor(Color.red);
 			g.setFont(new Font("Comic Sans MS", Font.BOLD, 50));
 			g.drawString("Game Over!", 500, 500);
+			timer1 += System.nanoTime() - lastTime1;
+			if(timer1 >= 1000000000) {
+				count += 1;
+				timer1 = 0;
+			}
+			if(count > 50) {
+				handler.getGame().setMenuState(null);
+			}
+		}
+		if(timer1 > 1000) {
+			handler.getGame().setMenuState(null);
 		}
 //		g.setColor(Color.red);
 //		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
