@@ -10,7 +10,7 @@ import titleGame.tiles.Tile;
 
 public class Enemy extends Creature {
 	
-	private Animation animatiStatic;
+	private Animation animationStatic;
 	private Animation animationDown;
 	private Animation animationUp;
 	private Animation animationLeft;
@@ -31,7 +31,7 @@ public class Enemy extends Creature {
 		bounds.width = 45;
 		bounds.height = 40;
 		
-		animatiStatic = new Animation(200, Assets.enemy_static);
+		animationStatic = new Animation(200, Assets.enemy_static);
 		animationDown = new Animation(200, Assets.enemy_down);
 		animationUp = new Animation(200, Assets.enemy_up);
 		animationLeft = new Animation(200, Assets.enemy_left);
@@ -129,6 +129,7 @@ public class Enemy extends Creature {
 	
 	public void tick() {
 		move();
+		animationStatic.tick();
 		animationDown.tick();
 		animationUp.tick();
 		animationLeft.tick();
@@ -143,7 +144,7 @@ public class Enemy extends Creature {
 		}else if(yMove < 0) {
 			return animationUp.getCurrentFrame();
 		}else {
-			return animationDown.getCurrentFrame();
+			return animationStatic.getCurrentFrame();
 		}
 	}
 	

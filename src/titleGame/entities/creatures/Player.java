@@ -186,11 +186,13 @@ public class Player extends Creature{
 				timer1 = 0;
 			}
 			if(count > 50) {
+				x=150;y=150;
 				health =DEFAULT_HEALTH;			
 				handler.getGame().setMenuState(null);
 			}
 		}
 		if(timer1 > 1000) {
+			x=150;y=150;
 			health=DEFAULT_HEALTH;
 			handler.getGame().setMenuState(null);
 		}
