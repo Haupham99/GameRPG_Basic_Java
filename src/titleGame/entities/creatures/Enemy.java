@@ -19,15 +19,15 @@ public class Enemy extends Creature {
 	
 	public Enemy(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
-		speed = 4.0f;
+		speed = 10.0f;
 		
 		timer = 0;
 		lastTime = System.currentTimeMillis();
 		
 		bounds.x = 15;
 		bounds.y = 10;
-		bounds.width = 30;
-		bounds.height = 30;
+		bounds.width = 45;
+		bounds.height = 40;
 		
 		animationDown = new Animation(200, Assets.enemy_down);
 		animationUp = new Animation(200, Assets.enemy_up);

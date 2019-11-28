@@ -14,10 +14,17 @@ import titleGame.gfx.Assets;
 public class Player extends Creature{
 	
 	//Animation
+	private Animation playerStatic;
+	
 	private Animation animationDown;
 	private Animation animationUp;
 	private Animation animationLeft;
 	private Animation animationRight;
+	
+	private Animation animationAttackDown;
+	private Animation animationAttackUp;
+	private Animation animationAttackLeft;
+	private Animation animationAttackRight;
 	
 	//Attack time
 	private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
@@ -25,24 +32,36 @@ public class Player extends Creature{
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
 		
-		health = 10;
+		health = 30;
 		bounds.x = 0;
 		bounds.y = 0;
 		bounds.width = 60;
 		bounds.height =60;
 		
+		playerStatic = new Animation(200, Assets.player_static);
+		
 		animationDown = new Animation(200, Assets.player_down);
 		animationUp = new Animation(200, Assets.player_up);
 		animationLeft = new Animation(200, Assets.player_left);
 		animationRight = new Animation(200, Assets.player_right);
+		
+		animationAttackDown = new Animation(70, Assets.player_attackDown);
+		animationAttackUp = new Animation(70, Assets.player_attackUp);
+		animationAttackLeft = new Animation(70, Assets.player_attackLeft);
+		animationAttackRight = new Animation(70, Assets.player_attackRight);
 	}
 
 	public void tick() {
 		//Movement
+		playerStatic.tick();
 		animationDown.tick();
 		animationUp.tick();
 		animationLeft.tick();
 		animationRight.tick();
+		animationAttackDown.tick();
+		animationAttackUp.tick();
+		animationAttackLeft.tick();
+		animationAttackRight.tick();
 		getInput();
 		move();
 		handler.getGameCamera().centerOnEntity(this);
@@ -111,8 +130,11 @@ public class Player extends Creature{
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(getCurrentAnimationFrame(), (int)(x - handler.getGameCamera().getxOffset()), (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
-	
+		if(getCurrentAnimationAttack() != null) {
+			g.drawImage(getCurrentAnimationAttack(), (int)(x - handler.getGameCamera().getxOffset()), (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
+		}else {
+			g.drawImage(getCurrentAnimationFrame(), (int)(x - handler.getGameCamera().getxOffset()), (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
+		}
 		if(health < 1) {
 			g.setColor(Color.red);
 			g.setFont(new Font("Comic Sans MS", Font.BOLD, 50));
@@ -130,8 +152,24 @@ public class Player extends Creature{
 			return animationRight.getCurrentFrame();
 		}else if(yMove < 0) {
 			return animationUp.getCurrentFrame();
-		}else {
+		}else if(yMove >0) {
 			return animationDown.getCurrentFrame();
+		}else {
+			return playerStatic.getCurrentFrame();
+		}
+	}
+	
+	private BufferedImage getCurrentAnimationAttack() {
+		if(handler.getKeyManager().aDown) {
+			return animationAttackDown.getCurrentFrame();
+		}else if (handler.getKeyManager().aUp) {
+			return animationAttackUp.getCurrentFrame();
+		}else if (handler.getKeyManager().aLeft) {
+			return animationAttackLeft.getCurrentFrame();
+		}else if (handler.getKeyManager().aRight) {
+			return animationAttackRight.getCurrentFrame();
+		}else {
+			return null;
 		}
 	}
 
