@@ -12,6 +12,7 @@ public class Assets {
 	public static BufferedImage[] player_down, player_up, player_left, player_right, player_static;
 	public static BufferedImage[] player_attackDown, player_attackUp, player_attackLeft, player_attackRight;
 	public static BufferedImage[] enemy_down, enemy_up, enemy_left, enemy_right;
+	public static BufferedImage[] btn_start;
 	
 	public static void init() {
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
@@ -80,6 +81,10 @@ public class Assets {
 		tree = sheet.crop(0, 0, width, height);
 		water = waterSheet.crop(0, 96*2, 96, 96);
 //		tree = character.crop(0, 0, width, height);
+		
+		btn_start= new BufferedImage[2];
+		btn_start[1]=sheet.crop(0,0,width*2,height);
+		btn_start[0]=sheet.crop(width*2,0,width*2,height);
 	}
 	
 }
