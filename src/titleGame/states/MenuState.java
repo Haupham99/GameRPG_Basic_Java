@@ -1,10 +1,10 @@
 package titleGame.states;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
-import titleGame.Game;
 import titleGame.Handler;
+import titleGame.entities.creatures.Enemy;
 import titleGame.gfx.Assets;
 import titleGame.ui.ClickListener;
 import titleGame.ui.UIImageButton;
@@ -22,7 +22,10 @@ public class MenuState extends State {
 
 			@Override
 			public void onClick() {
-				handler.getWorld().getEntityManager().getEnemy().setSpeed(2.0f);
+				ArrayList<Enemy> ene = handler.getWorld().getEntityManager().getEnemy();
+				for(Enemy e : ene) {
+					e.setSpeed(2.0f);
+				}
 				State.setState(handler.getGame().gameState);
 				
 			}}));
@@ -30,7 +33,10 @@ public class MenuState extends State {
 
 			@Override
 			public void onClick() {
-				handler.getWorld().getEntityManager().getEnemy().setSpeed(4.0f);
+				ArrayList<Enemy> ene = handler.getWorld().getEntityManager().getEnemy();
+				for(Enemy e : ene) {
+					e.setSpeed(4.0f);
+				}
 				State.setState(handler.getGame().gameState);
 				
 			}}));

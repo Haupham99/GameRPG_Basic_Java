@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import titleGame.Handler;
 import titleGame.entities.EntityManager;
 import titleGame.entities.creatures.Enemy;
+import titleGame.entities.creatures.EnemyMoveAround;
 import titleGame.entities.creatures.Player;
 import titleGame.entities.statics.Tree;
 import titleGame.tiles.Tile;
@@ -24,11 +25,12 @@ public class World {
 		entityManager = new EntityManager(handler,new Player(handler, 100, 100));
 		entityManager.addEntity(new Tree(handler, 150, 300));
 		entityManager.addEntity(new Tree(handler, 150, 700));
-		entityManager.addEntity(new Enemy(handler, 450, 200));
-		entityManager.addEntity(new Enemy(handler, 550, 430));
-		entityManager.addEntity(new Enemy(handler, 600, 800));
-		entityManager.addEntity(new Enemy(handler, 750, 1000));
+		entityManager.addEntity(new EnemyMoveAround(handler, 450, 200));
+		entityManager.addEntity(new EnemyMoveAround(handler, 550, 430));
+		entityManager.addEntity(new EnemyMoveAround(handler, 600, 800));
 		entityManager.addEntity(new Enemy(handler, 550, 1000));
+		entityManager.addEntity(new EnemyMoveAround(handler, 750, 1000));
+		
 
 		
 		loadWorld(path);

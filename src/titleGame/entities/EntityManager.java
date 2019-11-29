@@ -64,12 +64,13 @@ public class EntityManager {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	public Enemy getEnemy() {
+	public ArrayList<Enemy> getEnemy() {
+		ArrayList<Enemy> ene = new ArrayList<Enemy>();
 		for(int i=0;i<entities.size();i++)
 			if(entities.get(i) instanceof Enemy) {
-				return (Enemy) entities.get(i);
+				 ene.add((Enemy) entities.get(i));
 			}
-		return null;
+		return ene;
 	}
 	
 }

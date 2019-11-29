@@ -170,7 +170,6 @@ public class Player extends Creature{
 	}
 	
 	public void render(Graphics g) {
-		lastTime1 = System.currentTimeMillis();
 		if(getCurrentAnimationAttack() != null) {
 			g.drawImage(getCurrentAnimationAttack(), (int)(x - handler.getGameCamera().getxOffset()), (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
 		}else {
@@ -186,15 +185,10 @@ public class Player extends Creature{
 				timer1 = 0;
 			}
 			if(count > 50) {
-				x=150;y=150;
+				x=80;y=80;
 				health =DEFAULT_HEALTH;			
 				handler.getGame().setMenuState(null);
 			}
-		}
-		if(timer1 > 1000) {
-			x=150;y=150;
-			health=DEFAULT_HEALTH;
-			handler.getGame().setMenuState(null);
 		}
 //		g.setColor(Color.red);
 //		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
