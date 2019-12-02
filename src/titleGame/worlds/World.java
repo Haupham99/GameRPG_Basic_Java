@@ -25,7 +25,7 @@ public class World {
 		entityManager = new EntityManager(handler,new Player(handler, 100, 100));
 		entityManager.addEntity(new Tree(handler, 150, 300));
 		entityManager.addEntity(new Tree(handler, 150, 700));
-		entityManager.addEntity(new EnemyMoveAround(handler, 450, 200));
+		entityManager.addEntity(new EnemyMoveAround(handler, 450, 230));
 		entityManager.addEntity(new EnemyMoveAround(handler, 550, 430));
 		entityManager.addEntity(new EnemyMoveAround(handler, 600, 800));
 		entityManager.addEntity(new Enemy(handler, 550, 1000));
